@@ -15,6 +15,11 @@ export class AppComponent {
   @ViewChild(PictureComponent, {static: false})
   picture: PictureComponent;
 
+  constructor() {
+  }
+
+
   onClick(e: MouseEvent) {
+
   }
 }

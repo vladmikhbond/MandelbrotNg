@@ -2,7 +2,7 @@ import {Component, ElementRef, ViewChild} from '@angular/core';
 import {MathService} from './math.service';
 
 const K = 2;      // scale change for one step
-const D = 10;     // canvas pixel
+const D = 1;     // canvas pixel
 
 
 @Component({
@@ -19,8 +19,8 @@ const D = 10;     // canvas pixel
 export class PictureComponent {
 
 
-   @ViewChild('canvas', {static: false})
-   canvas: ElementRef<HTMLCanvasElement>;
+  @ViewChild('canvas', {static: false})
+  private canvas: ElementRef<HTMLCanvasElement>;
 
   x1 = -2;
   y1 = -1;
@@ -28,7 +28,9 @@ export class PictureComponent {
   y2 = 1;
 
 
-  constructor(private math: MathService) { }
+  constructor(private math: MathService) {
+    setTimeout(() => this.draw(), 0);
+  }
 
   canvasToWorld(canvasX: number, canvasY: number) {
     const canvas = this.canvas.nativeElement;
@@ -51,7 +53,7 @@ export class PictureComponent {
   draw() {
     const canvas = this.canvas.nativeElement;
     const ctx = canvas.getContext('2d');
-
+    ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, canvas.width, canvas.height );
     const low = this.minIter(canvas);
     for (let x = 0; x < canvas.width; x += D) {
@@ -59,7 +61,7 @@ export class PictureComponent {
         const [wx, wy] = this.canvasToWorld(x, y);
         const count = this.math.countIter2(wx, wy);
         if (count < this.math.iterLimit) {
-          // ctx.fillStyle = getColor(count, low);
+          ctx.fillStyle = 'white'; // getColor(count, low);
           ctx.fillRect(x, y, D, D);
         }
       }

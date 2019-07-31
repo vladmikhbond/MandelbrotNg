@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 
 export class MathService {
 
-  public iterLimit = 1000;
+  public iterLimit = 20;
 
   constructor() { }
 
