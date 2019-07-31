@@ -6,6 +6,7 @@ const K = 2;      // scale change for one step
   providedIn: 'root'
 })
 export class WindowService {
+  scale = 1;
   x1 = -2;
   y1 = -1;
   x2 = 1;
@@ -44,6 +45,7 @@ export class WindowService {
     this.x2 = x + xSize / 2;
     this.y1 = y - ySize / 2;
     this.y2 = y + ySize / 2;
+    this.scale++;
   }
 
   // приблизительное определение наименьшей глубины итерации в изображении

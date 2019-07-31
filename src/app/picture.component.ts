@@ -17,10 +17,8 @@ const D = 1;     // canvas pixel
 export class PictureComponent {
 
 
-  @ViewChild('canvas', {static: false})
+  @ViewChild('canvas', {static: true})
   private canvas: ElementRef<HTMLCanvasElement>;
-
-
 
   constructor(private win: WindowService) {
     setTimeout(() => {
