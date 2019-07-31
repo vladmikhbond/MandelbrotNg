@@ -26,10 +26,31 @@ export class PictureComponent {
   y1 = -1;
   x2 = 1;
   y2 = 1;
+  public iterLimit = 20;
 
 
   constructor(private math: MathService) {
     setTimeout(() => this.draw(), 0);
+  }
+
+  onMouseDown(e: MouseEvent) {
+    this.magnify(e.clientX, e.clientY);
+    this.draw();
+  }
+
+
+  // Zn = Zn**2 + C;
+  // Zo = 0; C = {x, y}
+  countIter2(cx, cy, limit = this.iterLimit) {
+    let x = cx;
+    let y = cy;
+    for (let i = 0; i < limit; i++) {
+      [x, y] = [x * x - y * y + cx, 2 * x * y + cy];
+      if ((x * x) + (y * y) > 4) {
+        return i;
+      }
+    }
+    return limit;
   }
 
   canvasToWorld(canvasX: number, canvasY: number) {
@@ -39,7 +60,9 @@ export class PictureComponent {
       canvasY * (this.y2 - this.y1) / canvas.height + this.y1 ];
   }
 
-  recalcSize(ex: number, ey: number) {
+  // set point (ex, ey) to the center of the new window
+  //
+  magnify(ex: number, ey: number) {
     const canvas = this.canvas.nativeElement;
     const [x, y] = this.canvasToWorld(ex - canvas.offsetLeft, ey - canvas.offsetTop);
     const xSize = (this.x2 - this.x1) / K;
@@ -55,12 +78,12 @@ export class PictureComponent {
     const ctx = canvas.getContext('2d');
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, canvas.width, canvas.height );
-    const low = this.minIter(canvas);
+    // const low = this.minIter(canvas);
     for (let x = 0; x < canvas.width; x += D) {
       for (let y = 0; y < canvas.height; y += D) {
         const [wx, wy] = this.canvasToWorld(x, y);
-        const count = this.math.countIter2(wx, wy);
-        if (count < this.math.iterLimit) {
+        const count = this.countIter2(wx, wy);
+        if (count < this.iterLimit) {
           ctx.fillStyle = 'white'; // getColor(count, low);
           ctx.fillRect(x, y, D, D);
         }
@@ -75,7 +98,7 @@ export class PictureComponent {
     for (let x = 0; x < canvas.width; x += d) {
       for (let y = 0; y < canvas.height; y += d) {
         const [wx, wy] = this.canvasToWorld(x, y);
-        const count = this.math.countIter2(wx, wy);
+        const count = this.countIter2(wx, wy);
         if (count < res) {
           res = count;
         }
@@ -85,9 +108,4 @@ export class PictureComponent {
   }
 
 
-  onMouseDown(e: MouseEvent) {
-    this.recalcSize(e.clientX, e.clientY);
-    this.draw();
-
-  }
 }
