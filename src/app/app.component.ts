@@ -1,10 +1,20 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
+import {PictureComponent} from './picture.component';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  template: `
+    <app-picture></app-picture>
+    <div>
+      <button (click)="onClick($event)">Clock</button>
+    </div>
+  `,
+  styles: ['']
 })
 export class AppComponent {
-  title = 'MandelbrotNg';
+  @ViewChild(PictureComponent, {static: false})
+  picture: PictureComponent;
+
+  onClick(e: MouseEvent) {
+  }
 }
