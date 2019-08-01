@@ -4,43 +4,45 @@ import {WindowService} from './window.service';
 
 @Component({
   selector: 'app-root',
+  styles: [
+  `input {
+      width: 100px;
+      text-align: right;
+    }`,
+    `span {
+      margin-left: 5px;
+      margin-right: 5px;
+    }`
+    ],
   template: `
     <div>
-      <app-picture (keydown)="onKeyDown($event)"  tabindex="1"></app-picture>
+      <app-picture></app-picture>
       <div>
-        <input #limit [value]="win.iterLimit" >
-        <button (click)="onClick(+limit.value)">Limit</button>
-        <span>{{win.scale}}</span>
+        <input type="range" #limit [value]="win.iterLimit" (change)="onLimitChange(+limit.value)" min="20" max="2000" step="20" title="limit">
+        <span>{{limit.value}}</span>
+        <span>scale: 1:{{win.scale}}</span>
+        <span>time: {{elapsedTime}}</span>
       </div>
     </div>
-  `,
-  styles: [
-    `input {
-      width: 50px;
-      text-align: right;
-    }
-    `
-  ]
+  `
 })
 export class AppComponent {
   @ViewChild(PictureComponent, {static: false})
   picture: PictureComponent;
 
-  constructor(private win: WindowService) {
+  constructor(public win: WindowService) {}
+
+  get elapsedTime() {
+     if (this.picture) {
+       return this.picture.elapsedTime / 1000;
+     }
+     return 0;
   }
 
-
-  onClick(newLimit: number) {
+  onLimitChange(newLimit: number) {
     this.win.iterLimit = newLimit;
     this.picture.draw();
   }
 
 
-  onKeyDown(e: KeyboardEvent) {
-    const key = e.key.toLowerCase();
-
-    if (e.ctrlKey && key === 'z') {
-        alert(key);
-    }
-  }
 }

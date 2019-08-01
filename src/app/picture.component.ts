@@ -6,12 +6,16 @@ const D = 1;     // canvas pixel
 @Component({
   selector: 'app-picture',
   template: `
-    <canvas #canvas width="500" height="300" (mousedown)="onMouseDown($event)"></canvas>
+    <canvas #canvas width="500" height="300"
+            (mousedown)="onMouseDown($event)"
+            (keypress)="onKeyPress($event)" tabindex="1">
+    </canvas>
   `,
-  styles: [`canvas {
+  styles: [
+    `canvas {
     width: 500px;
     height: 300px;
-    border: 1px solid red;
+    border: thin solid gray;
   }`]
 })
 export class PictureComponent {
@@ -19,6 +23,7 @@ export class PictureComponent {
 
   @ViewChild('canvas', {static: true})
   private canvas: ElementRef<HTMLCanvasElement>;
+  elapsedTime = 0.0;
 
   constructor(private win: WindowService) {
     setTimeout(() => {
@@ -27,13 +32,22 @@ export class PictureComponent {
     }, 0);
   }
 
+  //////////////// event handlers ///////////////////////
   onMouseDown(e: MouseEvent) {
     this.win.magnify(e.clientX, e.clientY);
     this.draw();
   }
 
+  onKeyPress(e: KeyboardEvent) {
+    if (e.code === 'KeyZ' && e.ctrlKey) {
+      this.win.historyBack();
+      this.draw();
+    }
+  }
 
   draw() {
+    const t = new Date();
+
     const canvas = this.canvas.nativeElement;
     const ctx = canvas.getContext('2d');
     ctx.fillStyle = 'black';
@@ -49,6 +63,7 @@ export class PictureComponent {
         }
       }
     }
+    this.elapsedTime = new Date().valueOf() - t.valueOf();
   }
 
 

@@ -6,13 +6,20 @@ const K = 2;      // scale change for one step
   providedIn: 'root'
 })
 export class WindowService {
-  scale = 1;
+
+
+  public get scale() {
+    return 2 ** this.history.length;
+  }
+
   x1 = -2;
   y1 = -1;
   x2 = 1;
   y2 = 1;
   iterLimit = 20;
   canvas: HTMLCanvasElement;
+
+  history: number[][] = [];
 
 
   // Zn = Zn**2 + C;
@@ -38,6 +45,7 @@ export class WindowService {
   // set point (ex, ey) to the center of the new window
   //
   magnify(ex: number, ey: number) {
+    this.historyForth();
     const [x, y] = this.canvasToWorld(ex - this.canvas.offsetLeft, ey - this.canvas.offsetTop);
     const xSize = (this.x2 - this.x1) / K;
     const ySize = (this.y2 - this.y1) / K;
@@ -45,7 +53,15 @@ export class WindowService {
     this.x2 = x + xSize / 2;
     this.y1 = y - ySize / 2;
     this.y2 = y + ySize / 2;
-    this.scale++;
+  }
+
+  historyForth() {
+    this.history.push([this.x1, this.y1, this.x2, this.y2, this.iterLimit]);
+  }
+  historyBack() {
+    if (this.history.length > 0) {
+      [this.x1, this.y1, this.x2, this.y2, this.iterLimit] = this.history.pop();
+    }
   }
 
   // приблизительное определение наименьшей глубины итерации в изображении
