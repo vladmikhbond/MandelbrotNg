@@ -24,7 +24,7 @@ export class PictureComponent {
   @ViewChild('canvas', {static: true})
   private canvas: ElementRef<HTMLCanvasElement>;
   elapsedTime = 0.0;
-  colorSchema = 0;
+  colorSchema = {schemaNo: 0, dark: 'black', light: 'white', third: 'white'};
 
   constructor(private win: WindowService) {
     setTimeout(() => {
