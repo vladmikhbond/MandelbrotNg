@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import {PictureComponent} from './picture.component';
@@ -9,7 +10,7 @@ import {PictureComponent} from './picture.component';
     AppComponent, PictureComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule, NgbDropdownModule
   ],
   providers: [],
   bootstrap: [AppComponent]

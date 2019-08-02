@@ -24,6 +24,7 @@ export class PictureComponent {
   @ViewChild('canvas', {static: true})
   private canvas: ElementRef<HTMLCanvasElement>;
   elapsedTime = 0.0;
+  colorSchema = 0;
 
   constructor(private win: WindowService) {
     setTimeout(() => {
@@ -64,6 +65,7 @@ export class PictureComponent {
       }
     }
     this.elapsedTime = new Date().valueOf() - t.valueOf();
+    console.log(this.elapsedTime + ' msec');
   }
 
 
