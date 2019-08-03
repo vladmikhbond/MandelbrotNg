@@ -23,7 +23,7 @@ export class PictureComponent {
 
   @ViewChild('canvas', {static: true})
   private canvas: ElementRef<HTMLCanvasElement>;
-  elapsedTime = 0.0;
+  elapsedTime = '';
   colorSchema = {schemaNo: 0, dark: 'black', light: 'white', third: 'white'};
 
   constructor(private win: WindowService) {
@@ -60,14 +60,13 @@ export class PictureComponent {
         const [wx, wy] = this.win.canvasToWorld(x, y);
         const count = this.win.countIter(wx, wy);
         if (count < this.win.iterLimit) {
-          ctx.fillStyle = this.getColor(count);
+          ctx.fillStyle = this.getColor(count, low);
           ctx.fillRect(x, y, D, D);
         }
       }
     }
-    this.elapsedTime = new Date().valueOf() - t.valueOf();
-    console.log(this.elapsedTime + ' msec');
-
+    this.elapsedTime = (new Date().valueOf() - t.valueOf()) + ' ms';
+    setTimeout(() => {this.elapsedTime = ''; }, 5000);
   }
 
 

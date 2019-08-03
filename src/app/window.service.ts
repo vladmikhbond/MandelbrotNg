@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-const K = 2;      // scale change for one step
+const K = 10;      // scale change for one step
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ export class WindowService {
 
 
   public get scale() {
-    return 2 ** this.history.length;
+    return K ** this.history.length;
   }
 
   x1 = -2;

@@ -28,8 +28,10 @@ import {WindowService} from './window.service';
     ,
       `#scaleSpan {
       margin: 0 5px 0 5px;
-      display: inline-block;
-      width: 50px;
+      padding-left: 5px;
+      padding-right: 5px;
+      /*display: inline-block;*/
+
       border: thin solid gray;
       text-align: center;
     }`
@@ -52,7 +54,6 @@ import {WindowService} from './window.service';
         <input type="range" #limit [value]="win.iterLimit" (mousemove)="f()" (change)="onLimitChange(+limit.value)" min="20" max="2000" step="20" title="limit">
 
         <span id="limitSpan">{{limit.value}}</span>
-        <span id="scaleSpan" title="Scale">1:{{win.scale}}</span>
 
         <span id="colorSpan" >
           <input type="color" #darkColor title="Dark Color" value="#000000" >
@@ -63,12 +64,14 @@ import {WindowService} from './window.service';
         <div ngbDropdown class="d-inline-block">
           <button class="btn btn-outline-primary" id="schemaDropdown" ngbDropdownToggle>{{colorSchemaName}}</button>
           <div ngbDropdownMenu aria-labelledby="schemaDropdown">
-            <button ngbDropdownItem (click)="g(0, 'Plain', darkColor.value, lightColor.value, thirdColor.value)" >Plain</button>
-            <button ngbDropdownItem (click)="g(1, 'Fiery', darkColor.value, lightColor.value, thirdColor.value)" >Fiery</button>
-            <button ngbDropdownItem (click)="g(2, 'Zebra', darkColor.value, lightColor.value, thirdColor.value)" >Zebra</button>
-            <button ngbDropdownItem (click)="g(3, 'Smooth', darkColor.value, lightColor.value, thirdColor.value)" >Smooth</button>
+            <button ngbDropdownItem *ngFor="let s of ['Plain', 'Fiery', 'Zebra', 'Smooth']; index as i;"
+                    (click)="g(i, s, darkColor.value, lightColor.value, thirdColor.value)" >{{s}}</button>
           </div>
         </div>
+      </div>
+      <div>
+        <span id="scaleSpan" title="Scale">1:{{win.scale}}</span>
+        <span id="elapsedTime" title="elapsedTime">{{elapsedTime}}</span>
       </div>
     </div>
   `
@@ -84,9 +87,9 @@ export class AppComponent {
 
   get elapsedTime() {
      if (this.picture) {
-       return this.picture.elapsedTime / 1000;
+       return this.picture.elapsedTime;
      }
-     return 0;
+     return '';
   }
 
   onLimitChange(newLimit: number) {
@@ -102,6 +105,5 @@ export class AppComponent {
     this.picture.colorSchema = {schemaNo, dark, light, third};
     this.colorSchemaName = schemaName;
     this.picture.draw();
-    console.log({schemaNo, dark, light, third});
   }
 }
