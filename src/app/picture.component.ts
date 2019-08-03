@@ -7,6 +7,7 @@ const D = 1;     // canvas pixel
   selector: 'app-picture',
   template: `
     <canvas #canvas width="500" height="300"
+            (mousemove)="onMouseMove($event)"
             (mousedown)="onMouseDown($event)"
             (keypress)="onKeyPress($event)" tabindex="1">
     </canvas>
@@ -15,7 +16,7 @@ const D = 1;     // canvas pixel
     `canvas {
     width: 500px;
     height: 300px;
-    border: thin solid gray;
+    border: thick solid lightblue;
   }`]
 })
 export class PictureComponent {
@@ -25,6 +26,7 @@ export class PictureComponent {
   private canvas: ElementRef<HTMLCanvasElement>;
   elapsedTime = '';
   colorSchema = {schemaNo: 0, dark: 'black', light: 'white', third: 'white'};
+  iterInPoint = '';
 
   constructor(private win: WindowService) {
     setTimeout(() => {
@@ -66,7 +68,7 @@ export class PictureComponent {
       }
     }
     this.elapsedTime = (new Date().valueOf() - t.valueOf()) + ' ms';
-    setTimeout(() => {this.elapsedTime = ''; }, 5000);
+    setTimeout(() => {this.elapsedTime = ''; }, 2500);
   }
 
 
@@ -104,6 +106,15 @@ export class PictureComponent {
         return `rgb(${r}, ${g}, ${b})`;
 
     }
+  }
+
+  onMouseMove(e: MouseEvent) {
+    const infinity = 10000;
+    const canvas = this.canvas.nativeElement;
+    const [wx, wy] = this.win.canvasToWorld(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+    const n = this.win.countIter(wx, wy, infinity);
+    this.iterInPoint = n === infinity ? '∞' : n.toString();
+
   }
 }
 

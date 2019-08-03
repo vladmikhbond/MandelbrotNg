@@ -1,0 +1,43 @@
+<app-picture></app-picture>
+<table>
+  <tr>
+    <td style="width: 200px">
+      <div id="limits">
+        <input type="range" #limit [value]="win.iterLimit" (mousemove)="f()" (change)="onLimitChange(+limit.value)"
+               min="20" max="2000" step="20" ngbTooltip="Resolution">
+        <span ngbTooltip="Infinity">{{limit.value}}</span>
+      </div>
+    </td>
+
+    <td style="width: 250px">
+      <div id="colors">
+        <input type="color" #darkColor ngbTooltip="Dark Color" value="#000000" >
+        <input type="color" #lightColor ngbTooltip="Light Color" value="#FFFFFF" >
+        <input type="color" #thirdColor ngbTooltip="Third Color" value="#FFFFFF" >
+
+        <div ngbDropdown class="d-inline-block" ngbTooltip="Color Schema">
+          <button class="btn btn-link" id="schemaDropdown" ngbDropdownToggle >{{colorSchemaName}}</button>
+          <div ngbDropdownMenu aria-labelledby="schemaDropdown">
+            <button ngbDropdownItem *ngFor="let schema of ['Plain', 'Fiery', 'Zebra', 'Smooth']; index as i;"
+                    (click)="g(i, schema, darkColor.value, lightColor.value, thirdColor.value)">{{schema}}</button>
+          </div>
+        </div>
+      </div>
+    </td>
+    <td style="width: 150px">
+      {{picture ? picture.iterInPoint : ''}}
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <span id="scaleSpan"><b>M</b> 1:{{win.scale}}</span>
+    </td>
+
+    <td>
+      <span id="elapsedTime" title="elapsedTime">{{elapsedTime}}</span>
+    </td>
+    <td></td>
+  </tr>
+</table>
+

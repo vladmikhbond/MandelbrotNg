@@ -1,0 +1,41 @@
+#limits {
+  display: inline-block;
+  border: thick solid lightblue;
+}
+#limits input {
+  width: 100px;
+  height: 26px;
+  margin: 5px 0px 5px 5px;
+  -webkit-appearance: none;
+  background-color: lightblue;
+}
+#limits span {
+  display: inline-block;
+  width: 50px;
+  margin: 5px 5px 5px 5px;
+  background-color: lightblue;
+  text-align: center;
+  vertical-align: bottom;
+}
+
+#colors {
+  display: inline-block;
+  border: thick solid lightblue;
+  padding-left: 10px;
+}
+#colors input {
+  margin: 5px 0px 5px 0px;
+  width: 40px;
+}
+#colors button {
+  margin: 0 5px 0 5px;
+}
+
+#scaleSpan {
+
+}
+#elapsedTime {
+  font-size: small;
+  color: blue;
+}
+
