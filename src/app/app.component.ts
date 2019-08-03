@@ -5,75 +5,81 @@ import {WindowService} from './window.service';
 @Component({
   selector: 'app-root',
   styles: [
-      `input[type='color'] {
-      width: 40px;
+      `#limits {
+        display: inline-block;
+        border: thick solid lightblue;
     }`
     ,
-    `input[type='range'] {
+      `#limits input {
       width: 100px;
-      /*overflow: hidden;*/
+      height: 26px;
+      margin: 5px 0px 5px 5px;
       -webkit-appearance: none;
       background-color: lightblue;
     }`
     ,
-      `#limitSpan {
-      margin: 0 5px 0 5px;
+      `#limits span {
       display: inline-block;
       width: 50px;
-      border: thin solid blue;
+      margin: 5px 5px 5px 5px;
       background-color: lightblue;
       text-align: center;
-
+      vertical-align: bottom;
     }`
     ,
-      `#scaleSpan {
+    `#colors{
+        display: inline-block;
+        border: thick solid lightblue;
+        margin: 0 0 0 20px;
+    }`
+    ,
+    `#colors input {
+      margin: 5px 0px 5px 0px;
+      width: 40px;
+    }`
+    ,
+      `#colors button {
       margin: 0 5px 0 5px;
-      padding-left: 5px;
-      padding-right: 5px;
-      /*display: inline-block;*/
-
-      border: thin solid gray;
-      text-align: center;
-    }`
-    ,
-      `#colorSpan {
-      margin: 0 5px 0 50px;
-      border: thin solid gray;
-      text-align: center;
-    }`
-    ,
-      `#schemaDropdown {
-      margin: 0 5px 0 5px;
-      height: 30px;
     }`
     ],
   template: `
-    <div>
       <app-picture></app-picture>
-      <div>
-        <input type="range" #limit [value]="win.iterLimit" (mousemove)="f()" (change)="onLimitChange(+limit.value)" min="20" max="2000" step="20" title="limit">
+      <table>
+        <tr>
+          <td>
+            <div id="limits">
+              <input type="range" #limit [value]="win.iterLimit" (mousemove)="f()" (change)="onLimitChange(+limit.value)"
+                     min="20" max="2000" step="20" title="limit">
+              <span>{{limit.value}}</span>
+            </div>
 
-        <span id="limitSpan">{{limit.value}}</span>
+          </td>
+          <td>
+            <div id="colors">
+              <input type="color" #darkColor title="Dark Color" value="#000000" >
+              <input type="color" #lightColor title="Light Color" value="#FFFFFF" >
+              <input type="color" #thirdColor title="Third Color" value="#FFFFFF" >
 
-        <span id="colorSpan" >
-          <input type="color" #darkColor title="Dark Color" value="#000000" >
-          <input type="color" #lightColor title="Light Color" value="#FFFFFF" >
-          <input type="color" #thirdColor title="Third Color" value="#FFFFFF" >
-        </span>
+              <div ngbDropdown class="d-inline-block">
+                <button class="btn btn-link" id="schemaDropdown" ngbDropdownToggle>{{colorSchemaName}}</button>
+                <div ngbDropdownMenu aria-labelledby="schemaDropdown">
+                  <button ngbDropdownItem *ngFor="let s of ['Plain', 'Fiery', 'Zebra', 'Smooth']; index as i;"
+                          (click)="g(i, s, darkColor.value, lightColor.value, thirdColor.value)" >{{s}}</button>
+                </div>
+              </div>
+            </div>
 
-        <div ngbDropdown class="d-inline-block">
-          <button class="btn btn-outline-primary" id="schemaDropdown" ngbDropdownToggle>{{colorSchemaName}}</button>
-          <div ngbDropdownMenu aria-labelledby="schemaDropdown">
-            <button ngbDropdownItem *ngFor="let s of ['Plain', 'Fiery', 'Zebra', 'Smooth']; index as i;"
-                    (click)="g(i, s, darkColor.value, lightColor.value, thirdColor.value)" >{{s}}</button>
-          </div>
-        </div>
-      </div>
-      <div>
-        <span id="scaleSpan" title="Scale">1:{{win.scale}}</span>
-        <span id="elapsedTime" title="elapsedTime">{{elapsedTime}}</span>
-      </div>
-    </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+              <span id="scaleSpan" title="Scale">1:{{win.scale}}</span>
+          </td>
+          <td>
+              <span id="elapsedTime" title="elapsedTime">{{elapsedTime}}</span>
+          </td>
+        </tr>
+    </table>
   `
 })
 export class AppComponent {
