@@ -65,18 +65,18 @@ export class WindowService {
   }
 
   // приблизительное определение наименьшей глубины итерации в изображении
-  // minIter(canvas: HTMLCanvasElement) {
-  //   let res = Number.MAX_VALUE;
-  //   const d = 50;
-  //   for (let x = 0; x < canvas.width; x += d) {
-  //     for (let y = 0; y < canvas.height; y += d) {
-  //       const [wx, wy] = this.canvasToWorld(x, y);
-  //       const count = this.countIter(wx, wy);
-  //       if (count < res) {
-  //         res = count;
-  //       }
-  //     }
-  //   }
-  //   return res;
-  // }
+  minIter(canvas: HTMLCanvasElement) {
+    let res = Number.MAX_VALUE;
+    const d = 50;
+    for (let x = 0; x < canvas.width; x += d) {
+      for (let y = 0; y < canvas.height; y += d) {
+        const [wx, wy] = this.canvasToWorld(x, y);
+        const count = this.countIter(wx, wy);
+        if (count < res) {
+          res = count;
+        }
+      }
+    }
+    return res;
+  }
 }

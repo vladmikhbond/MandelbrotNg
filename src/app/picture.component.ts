@@ -54,7 +54,7 @@ export class PictureComponent {
     ctx.fillStyle = this.getInfitityColor();
     ctx.fillRect(0, 0, canvas.width, canvas.height );
 
-    // const low = this.win.minIter(canvas);
+    const low = this.win.minIter(canvas);
     for (let x = 0; x < canvas.width; x += D) {
       for (let y = 0; y < canvas.height; y += D) {
         const [wx, wy] = this.win.canvasToWorld(x, y);
