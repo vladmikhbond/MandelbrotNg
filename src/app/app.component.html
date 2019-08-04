@@ -1,5 +1,5 @@
 <div class="root" tabindex="1" (keypress)="onKeyPress($event)">
-<h1 ngbTooltip="{{help}}">Mandelbrot <span id="scaleSpan"> 1:{{win.scale}}</span></h1>
+<h1><span ngbTooltip="{{help}}">Mandelbrot Lens</span><span id="scaleSpan"> 1:{{win.scale}}</span></h1>
 <app-picture></app-picture>
 <table>
   <tr>
@@ -8,21 +8,21 @@
       <button class="btn btn-danger btn-sm" (click)="reset()">Reset</button>
       </div>
     </td>
-    <td>
-      <div id="limits">
+    <td ngbTooltip="Resolution">
+      <div id="limits"  >
         <input type="range" #limit [value]="win.iterLimit" (mousemove)="f()" (change)="onLimitChange(+limit.value)"
-               min="20" max="2000" step="20" ngbTooltip="Resolution">
-        <span ngbTooltip="Infinity">{{limit.value}}</span>
+               min="20" max="2000" step="20">
+        <span>{{limit.value}}</span>
       </div>
     </td>
 
-    <td>
+    <td  ngbTooltip="Color Schema">
       <div id="colors">
-        <input type="color" #dark ngbTooltip="Dark Color" value="#000000" (change)="h('dark', dark.value)">
-        <input type="color" #light ngbTooltip="Light Color" value="#FFFFFF" (change)="h('light', light.value)">
-        <input type="color" #third ngbTooltip="Third Color" value="#FF0000" (change)="h('third', third.value)">
+        <input type="color" #dark value="#000000" (change)="h('dark', dark.value)">
+        <input type="color" #light value="#FFFFFF" (change)="h('light', light.value)">
+        <input type="color" #third value="#FF0000" (change)="h('third', third.value)">
 
-        <div ngbDropdown class="d-inline-block" ngbTooltip="Color Schema">
+        <div ngbDropdown class="d-inline-block">
           <button class="btn btn-link" id="schemaDropdown" ngbDropdownToggle >{{colorSchemaName}}</button>
           <div ngbDropdownMenu aria-labelledby="schemaDropdown">
             <button ngbDropdownItem *ngFor="let schema of ['Plain', 'Fiery', 'Zebra', 'Smooth']; index as i;"

@@ -57,7 +57,8 @@ Ctrl-Z - откат назад
   }
 
   reset() {
-    this.win.historyReset();
+    this.win.init();
+    this.g(0, 'Plain', '#000000', '#FFFFFF', '#FF0000');
     this.picture.draw();
   }
 }

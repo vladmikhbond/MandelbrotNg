@@ -32,13 +32,8 @@ td {
   vertical-align: top;
 }
 
-#colors {
-
-}
 #colors input {
   width: 40px;
-}
-#colors button {
 }
 
 #elapsedTime {
@@ -46,11 +41,10 @@ td {
   color: blue;
 }
 
-
-/*::ng-deep .tooltip-inner {*/
-/*  background-color: darkgreen;*/
-/*  font-size: 125%;*/
-/*}*/
-/*::ng-deep .arrow::before {*/
-/*  display: none;*/
-/*}*/
+::ng-deep .tooltip-inner {
+  white-space: pre;
+  text-align: left;
+}
+::ng-deep .arrow::before {
+  /*display: none;*/
+}

@@ -12,15 +12,27 @@ export class WindowService {
     return K ** this.history.length;
   }
 
-  x1 = -2;
-  y1 = -1;
-  x2 = 1;
-  y2 = 1;
-  iterLimit = 20;
+  x1: number;
+  y1: number;
+  x2: number;
+  y2: number;
+  iterLimit: number;
   canvas: HTMLCanvasElement;
 
-  history: number[][] = [];
+  history: number[][];
 
+  constructor() {
+    this.init();
+  }
+
+  init() {
+    this.x1 = -2;
+    this.y1 = -1;
+    this.x2 = 1;
+    this.y2 = 1;
+    this.iterLimit = 20;
+    this.history = [];
+  }
 
   // Zn = Zn**2 + C;
   // Zo = 0; C = {x, y}
@@ -61,12 +73,6 @@ export class WindowService {
   historyBack() {
     if (this.history.length > 0) {
       [this.x1, this.y1, this.x2, this.y2, this.iterLimit] = this.history.pop();
-    }
-  }
-  historyReset() {
-    if (this.history.length > 0) {
-      [this.x1, this.y1, this.x2, this.y2, this.iterLimit] = this.history[0];
-      this.history = [];
     }
   }
 

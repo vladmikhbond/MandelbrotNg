@@ -6,7 +6,7 @@ const D = 1;     // canvas pixel
 @Component({
   selector: 'app-picture',
   template: `
-    <canvas #canvas width="500" height="300"
+    <canvas #canvas width="510" height="340"
             (mousemove)="onMouseMove($event)"
             (mousedown)="onMouseDown($event)"
     ></canvas>
@@ -14,6 +14,7 @@ const D = 1;     // canvas pixel
   styles: [
     `canvas {
     border: 2px solid #007bff;
+      cursor: crosshair;
   }`]
 })
 export class PictureComponent {
