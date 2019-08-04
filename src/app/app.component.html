@@ -3,7 +3,12 @@
 <app-picture></app-picture>
 <table>
   <tr>
-    <td style="width: 200px">
+    <td>
+      <div id="reset">
+      <button class="btn btn-danger btn-sm" (click)="reset()">Reset</button>
+      </div>
+    </td>
+    <td>
       <div id="limits">
         <input type="range" #limit [value]="win.iterLimit" (mousemove)="f()" (change)="onLimitChange(+limit.value)"
                min="20" max="2000" step="20" ngbTooltip="Resolution">
@@ -11,7 +16,7 @@
       </div>
     </td>
 
-    <td style="width: 250px">
+    <td>
       <div id="colors">
         <input type="color" #dark ngbTooltip="Dark Color" value="#000000" (change)="h('dark', dark.value)">
         <input type="color" #light ngbTooltip="Light Color" value="#FFFFFF" (change)="h('light', light.value)">
@@ -26,20 +31,10 @@
         </div>
       </div>
     </td>
-    <td style="width: 150px">
+    <td style="border: none">
       {{picture ? picture.iterInPoint : ''}}
-    </td>
-  </tr>
-
-  <tr>
-    <td>
-
-    </td>
-
-    <td>
       <span id="elapsedTime" title="elapsedTime">{{elapsedTime}}</span>
     </td>
-    <td></td>
   </tr>
 </table>
 </div>

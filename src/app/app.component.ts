@@ -27,6 +27,8 @@ Ctrl-Z - откат назад
      return '';
   }
 
+  ////////////////// event handlers /////////////////////////
+
   onLimitChange(newLimit: number) {
     this.win.iterLimit = newLimit;
     this.picture.draw();
@@ -52,5 +54,10 @@ Ctrl-Z - откат назад
        this.win.historyBack();
        this.picture.draw();
      }
+  }
+
+  reset() {
+    this.win.historyReset();
+    this.picture.draw();
   }
 }

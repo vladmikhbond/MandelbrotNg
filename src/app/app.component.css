@@ -4,52 +4,53 @@
 h1 {
   color: crimson;
 }
-#limits {
+#scaleSpan {
+  font-size: 60%;
+  margin-left: 20px;
+  color: blue;
+}
+
+td {
   display: inline-block;
   border: 2px solid #007bff;
+  margin-right: 10px;
+  padding: 5px;
+  height: 45px;
 }
+
 #limits input {
+  margin-top: 5px;
   width: 100px;
-  height: 26px;
-  margin: 5px 0px 5px 5px;
   -webkit-appearance: none;
   background-color: #007bff;
 }
 #limits span {
   display: inline-block;
   width: 50px;
-  margin: 5px 5px 5px 5px;
-  background-color: #007bff;
-  color: white;
+  color: #007bff;
   text-align: center;
-  vertical-align: bottom;
+  vertical-align: top;
 }
 
 #colors {
-  display: inline-block;
-  border: 2px solid #007bff;
-  padding-left: 10px;
+
 }
 #colors input {
-  margin: 5px 0px 5px 0px;
   width: 40px;
 }
 #colors button {
-  margin: 0 5px 0 5px;
 }
 
-#scaleSpan {
-  font-size: 60%;
-  margin-left: 20px;
-  color: blue;
-}
 #elapsedTime {
   font-size: small;
   color: blue;
 }
 
-::ng-deep .tooltip-inner {
-  /*width: 400px;*/
-  border: 1px solid gray;
-  white-space: pre;
-}
+
+/*::ng-deep .tooltip-inner {*/
+/*  background-color: darkgreen;*/
+/*  font-size: 125%;*/
+/*}*/
+/*::ng-deep .arrow::before {*/
+/*  display: none;*/
+/*}*/

@@ -63,6 +63,12 @@ export class WindowService {
       [this.x1, this.y1, this.x2, this.y2, this.iterLimit] = this.history.pop();
     }
   }
+  historyReset() {
+    if (this.history.length > 0) {
+      [this.x1, this.y1, this.x2, this.y2, this.iterLimit] = this.history[0];
+      this.history = [];
+    }
+  }
 
   // приблизительное определение наименьшей глубины итерации в изображении
   minIter(canvas: HTMLCanvasElement) {
