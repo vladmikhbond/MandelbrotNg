@@ -1,26 +1,33 @@
+.root {
+  outline: none;
+}
+h1 {
+  color: crimson;
+}
 #limits {
   display: inline-block;
-  border: thick solid lightblue;
+  border: 2px solid #007bff;
 }
 #limits input {
   width: 100px;
   height: 26px;
   margin: 5px 0px 5px 5px;
   -webkit-appearance: none;
-  background-color: lightblue;
+  background-color: #007bff;
 }
 #limits span {
   display: inline-block;
   width: 50px;
   margin: 5px 5px 5px 5px;
-  background-color: lightblue;
+  background-color: #007bff;
+  color: white;
   text-align: center;
   vertical-align: bottom;
 }
 
 #colors {
   display: inline-block;
-  border: thick solid lightblue;
+  border: 2px solid #007bff;
   padding-left: 10px;
 }
 #colors input {
@@ -32,10 +39,17 @@
 }
 
 #scaleSpan {
-
+  font-size: 60%;
+  margin-left: 20px;
+  color: blue;
 }
 #elapsedTime {
   font-size: small;
   color: blue;
 }
 
+::ng-deep .tooltip-inner {
+  /*width: 400px;*/
+  border: 1px solid gray;
+  white-space: pre;
+}

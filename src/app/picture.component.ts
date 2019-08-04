@@ -9,14 +9,11 @@ const D = 1;     // canvas pixel
     <canvas #canvas width="500" height="300"
             (mousemove)="onMouseMove($event)"
             (mousedown)="onMouseDown($event)"
-            (keypress)="onKeyPress($event)" tabindex="1">
-    </canvas>
+    ></canvas>
   `,
   styles: [
     `canvas {
-    width: 500px;
-    height: 300px;
-    border: thick solid lightblue;
+    border: 2px solid #007bff;
   }`]
 })
 export class PictureComponent {
@@ -39,13 +36,6 @@ export class PictureComponent {
   onMouseDown(e: MouseEvent) {
     this.win.magnify(e.clientX, e.clientY);
     this.draw();
-  }
-
-  onKeyPress(e: KeyboardEvent) {
-    if (e.code === 'KeyZ' && e.ctrlKey) {
-      this.win.historyBack();
-      this.draw();
-    }
   }
 
   draw() {

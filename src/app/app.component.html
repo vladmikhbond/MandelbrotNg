@@ -1,3 +1,5 @@
+<div class="root" tabindex="1" (keypress)="onKeyPress($event)">
+<h1 ngbTooltip="{{help}}">Mandelbrot <span id="scaleSpan"> 1:{{win.scale}}</span></h1>
 <app-picture></app-picture>
 <table>
   <tr>
@@ -11,15 +13,15 @@
 
     <td style="width: 250px">
       <div id="colors">
-        <input type="color" #darkColor ngbTooltip="Dark Color" value="#000000" >
-        <input type="color" #lightColor ngbTooltip="Light Color" value="#FFFFFF" >
-        <input type="color" #thirdColor ngbTooltip="Third Color" value="#FFFFFF" >
+        <input type="color" #dark ngbTooltip="Dark Color" value="#000000" (change)="h('dark', dark.value)">
+        <input type="color" #light ngbTooltip="Light Color" value="#FFFFFF" (change)="h('light', light.value)">
+        <input type="color" #third ngbTooltip="Third Color" value="#FF0000" (change)="h('third', third.value)">
 
         <div ngbDropdown class="d-inline-block" ngbTooltip="Color Schema">
           <button class="btn btn-link" id="schemaDropdown" ngbDropdownToggle >{{colorSchemaName}}</button>
           <div ngbDropdownMenu aria-labelledby="schemaDropdown">
             <button ngbDropdownItem *ngFor="let schema of ['Plain', 'Fiery', 'Zebra', 'Smooth']; index as i;"
-                    (click)="g(i, schema, darkColor.value, lightColor.value, thirdColor.value)">{{schema}}</button>
+                    (click)="g(i, schema, dark.value, light.value, third.value)">{{schema}}</button>
           </div>
         </div>
       </div>
@@ -31,7 +33,7 @@
 
   <tr>
     <td>
-      <span id="scaleSpan"><b>M</b> 1:{{win.scale}}</span>
+
     </td>
 
     <td>
@@ -40,4 +42,4 @@
     <td></td>
   </tr>
 </table>
-
+</div>

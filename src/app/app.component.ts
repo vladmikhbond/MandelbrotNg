@@ -14,6 +14,10 @@ export class AppComponent {
 
   colorSchemaName = 'Plain';
 
+  help = `Click - увеличение в 10 раз
+Ctrl-Z - откат назад
+слайдер - разрешение`;
+
   constructor(public win: WindowService) {}
 
   get elapsedTime() {
@@ -36,5 +40,17 @@ export class AppComponent {
     this.picture.colorSchema = {schemaNo, dark, light, third};
     this.colorSchemaName = schemaName;
     this.picture.draw();
+  }
+
+  h(name: string, value: string) {
+    this.picture.colorSchema[name] = value;
+    this.picture.draw();
+  }
+
+   onKeyPress(e: KeyboardEvent) {
+     if (e.code === 'KeyZ' && e.ctrlKey) {
+       this.win.historyBack();
+       this.picture.draw();
+     }
   }
 }
