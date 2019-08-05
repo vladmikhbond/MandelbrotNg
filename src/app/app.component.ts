@@ -16,7 +16,7 @@ export class AppComponent {
 
   help = `Click - увеличение в 10 раз
 Ctrl-Z - откат назад
-слайдер - разрешение`;
+слайдер - высота среза`;
 
   constructor(public win: WindowService) {}
 
@@ -29,7 +29,7 @@ Ctrl-Z - откат назад
 
   ////////////////// event handlers /////////////////////////
 
-  onLimitChange(newLimit: number) {
+  limit_change(newLimit: number) {
     this.win.iterLimit = newLimit;
     this.picture.draw();
   }
@@ -37,28 +37,29 @@ Ctrl-Z - откат назад
   // Do not delete! Needs for ng recalculation range.value
   f() { }
 
-  g(schemaNo: number, schemaName: string, dark: string, light: string, third: string) {
+  schema_click(schemaNo: number, schemaName: string, dark: string, light: string, third: string) {
 
     this.picture.colorSchema = {schemaNo, dark, light, third};
     this.colorSchemaName = schemaName;
     this.picture.draw();
   }
 
-  h(name: string, value: string) {
+  color_change(name: string, value: string) {
     this.picture.colorSchema[name] = value;
     this.picture.draw();
   }
 
-   onKeyPress(e: KeyboardEvent) {
+   root_keypress(e: KeyboardEvent) {
      if (e.code === 'KeyZ' && e.ctrlKey) {
-       this.win.historyBack();
+       this.win.minify();
        this.picture.draw();
      }
   }
 
-  reset() {
+  reset_click() {
     this.win.init();
-    this.g(0, 'Plain', '#000000', '#FFFFFF', '#FF0000');
+    this.schema_click(0, 'Plain', '#000000', '#FFFFFF', '#FF0000');
+    this.win.fillMatrix();
     this.picture.draw();
   }
 }

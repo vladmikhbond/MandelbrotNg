@@ -1,16 +1,16 @@
-<div class="root" tabindex="1" (keypress)="onKeyPress($event)">
+<div class="root" tabindex="1" (keypress)="root_keypress($event)">
 <h1><span ngbTooltip="{{help}}">Mandelbrot Lens</span><span id="scaleSpan"> 1:{{win.scale}}</span></h1>
 <app-picture></app-picture>
 <table>
   <tr>
     <td>
       <div id="reset">
-      <button class="btn btn-danger btn-sm" (click)="reset()">Reset</button>
+      <button class="btn btn-danger btn-sm" (click)="reset_click()">Reset</button>
       </div>
     </td>
     <td ngbTooltip="Resolution">
       <div id="limits"  >
-        <input type="range" #limit [value]="win.iterLimit" (mousemove)="f()" (change)="onLimitChange(+limit.value)"
+        <input type="range" #limit [value]="win.iterLimit" (mousemove)="f()" (change)="limit_change(+limit.value)"
                min="20" max="2000" step="20">
         <span>{{limit.value}}</span>
       </div>
@@ -18,15 +18,15 @@
 
     <td  ngbTooltip="Color Schema">
       <div id="colors">
-        <input type="color" #dark value="#000000" (change)="h('dark', dark.value)">
-        <input type="color" #light value="#FFFFFF" (change)="h('light', light.value)">
-        <input type="color" #third value="#FF0000" (change)="h('third', third.value)">
+        <input type="color" #dark value="#000000" (change)="color_change('dark', dark.value)">
+        <input type="color" #light value="#FFFFFF" (change)="color_change('light', light.value)">
+        <input type="color" #third value="#FF0000" (change)="color_change('third', third.value)">
 
         <div ngbDropdown class="d-inline-block">
           <button class="btn btn-link" id="schemaDropdown" ngbDropdownToggle >{{colorSchemaName}}</button>
           <div ngbDropdownMenu aria-labelledby="schemaDropdown">
             <button ngbDropdownItem *ngFor="let schema of ['Plain', 'Fiery', 'Zebra', 'Smooth']; index as i;"
-                    (click)="g(i, schema, dark.value, light.value, third.value)">{{schema}}</button>
+                    (click)="schema_click(i, schema, dark.value, light.value, third.value)">{{schema}}</button>
           </div>
         </div>
       </div>

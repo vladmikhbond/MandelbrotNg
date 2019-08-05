@@ -29,19 +29,23 @@ export class PictureComponent {
   constructor(private win: WindowService) {
     setTimeout(() => {
       win.canvas = this.canvas.nativeElement;
+      this.win.fillMatrix();
       this.draw();
     }, 0);
   }
 
   //////////////// event handlers ///////////////////////
   onMouseDown(e: MouseEvent) {
+    const t = new Date();
+
     this.win.magnify(e.clientX, e.clientY);
     this.draw();
+
+    this.elapsedTime = (new Date().valueOf() - t.valueOf()) + ' ms';
+    setTimeout(() => {this.elapsedTime = ''; }, 2500);
   }
 
   draw() {
-    const t = new Date();
-
     const canvas = this.canvas.nativeElement;
     const ctx = canvas.getContext('2d');
     ctx.fillStyle = this.getInfitityColor();
@@ -50,16 +54,13 @@ export class PictureComponent {
     const low = this.win.minIter(canvas);
     for (let x = 0; x < canvas.width; x += D) {
       for (let y = 0; y < canvas.height; y += D) {
-        const [wx, wy] = this.win.canvasToWorld(x, y);
-        const count = this.win.countIter(wx, wy);
+        const count = this.win.matrix[y][x];
         if (count < this.win.iterLimit) {
           ctx.fillStyle = this.getColor(count, low);
           ctx.fillRect(x, y, D, D);
         }
       }
     }
-    this.elapsedTime = (new Date().valueOf() - t.valueOf()) + ' ms';
-    setTimeout(() => {this.elapsedTime = ''; }, 2500);
   }
 
 

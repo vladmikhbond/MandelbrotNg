@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 
 const K = 10;      // scale change for one step
+const WIDTH = 510;
+const HEIGHT = 340;
+const INFINITY = 2000;
 
 @Injectable({
   providedIn: 'root'
 })
 export class WindowService {
-
 
   public get scale() {
     return K ** this.history.length;
@@ -18,11 +20,17 @@ export class WindowService {
   y2: number;
   iterLimit: number;
   canvas: HTMLCanvasElement;
+  matrix: number[][];
 
   history: number[][];
 
   constructor() {
     this.init();
+    //
+    this.matrix = new Array(HEIGHT);
+    for (let i = 0; i < HEIGHT; i++) {
+      this.matrix[i] = new Array(WIDTH);
+    }
   }
 
   init() {
@@ -32,6 +40,15 @@ export class WindowService {
     this.y2 = 1;
     this.iterLimit = 20;
     this.history = [];
+  }
+
+  fillMatrix() {
+    for (let x = 0; x < WIDTH; x++) {
+      for (let y = 0; y < HEIGHT; y++) {
+        const [wx, wy] = this.canvasToWorld(x, y);
+        this.matrix[y][x] = this.countIter(wx, wy, INFINITY);
+      }
+    }
   }
 
   // Zn = Zn**2 + C;
@@ -65,12 +82,20 @@ export class WindowService {
     this.x2 = x + xSize / 2;
     this.y1 = y - ySize / 2;
     this.y2 = y + ySize / 2;
+    //
+    this.fillMatrix();
   }
 
-  historyForth() {
+  minify() {
+    this.historyBack();
+    this.fillMatrix();
+  }
+
+  private historyForth() {
     this.history.push([this.x1, this.y1, this.x2, this.y2, this.iterLimit]);
   }
-  historyBack() {
+
+  private historyBack() {
     if (this.history.length > 0) {
       [this.x1, this.y1, this.x2, this.y2, this.iterLimit] = this.history.pop();
     }
@@ -82,8 +107,7 @@ export class WindowService {
     const d = 50;
     for (let x = 0; x < canvas.width; x += d) {
       for (let y = 0; y < canvas.height; y += d) {
-        const [wx, wy] = this.canvasToWorld(x, y);
-        const count = this.countIter(wx, wy);
+        const count = this.matrix[y][x];
         if (count < res) {
           res = count;
         }
