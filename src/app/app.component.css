@@ -42,8 +42,10 @@ td {
 }
 
 ::ng-deep .tooltip-inner {
-  white-space: pre;
+  white-space: pre-wrap;
   text-align: left;
+  min-width: 500px;
+  background-color: blue;
 }
 ::ng-deep .arrow::before {
   /*display: none;*/
