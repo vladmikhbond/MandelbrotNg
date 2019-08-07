@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 const K = 10;      // scale change for one step
 const WIDTH = 510;
 const HEIGHT = 340;
-const INFINITY = 2000;
+export const INFINITY = 2000;
 
 @Injectable({
   providedIn: 'root'
@@ -43,12 +43,14 @@ export class WindowService {
   }
 
   fillMatrix() {
+    const t = new Date();
     for (let x = 0; x < WIDTH; x++) {
       for (let y = 0; y < HEIGHT; y++) {
         const [wx, wy] = this.canvasToWorld(x, y);
         this.matrix[y][x] = this.countIter(wx, wy, INFINITY);
       }
     }
+    console.log('Fill Matrix = ' + (new Date().valueOf() - t.valueOf()) + ' ms');
   }
 
   // Zn = Zn**2 + C;

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {NgbDropdownModule, NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbCollapseModule, NgbDropdownModule, NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import {PictureComponent} from './picture.component';
@@ -10,7 +10,7 @@ import {PictureComponent} from './picture.component';
     AppComponent, PictureComponent
   ],
   imports: [
-    BrowserModule, NgbDropdownModule, NgbTooltipModule
+    BrowserModule, NgbDropdownModule, NgbTooltipModule, NgbCollapseModule
   ],
   providers: [],
   bootstrap: [AppComponent]

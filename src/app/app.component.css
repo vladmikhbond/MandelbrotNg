@@ -44,9 +44,14 @@ td {
 ::ng-deep .tooltip-inner {
   white-space: pre-wrap;
   text-align: left;
-  min-width: 500px;
-  background-color: blue;
+  /*background-color: blue;*/
 }
 ::ng-deep .arrow::before {
   /*display: none;*/
+}
+
+.card-body {
+  white-space: pre-wrap;
+  width: 500px;
+  background-color: lightblue;
 }
