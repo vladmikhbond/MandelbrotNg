@@ -14,7 +14,7 @@ const D = 1;     // canvas pixel
   styles: [
     `canvas {
     border: 2px solid #007bff;
-      cursor: crosshair;
+      cursor:url(assets/my-mouse-pointer.cur),crosshair;
   }`]
 })
 export class PictureComponent {
